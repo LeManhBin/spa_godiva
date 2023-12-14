@@ -1,0 +1,13 @@
+.overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -100px;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: 0.5s ease-in-out;
+}
+
+.expert-card:hover .overlay {
+   inset: 0;
+   transition: 0.5s ease-in-out;
+}

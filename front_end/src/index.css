@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Whisper&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.whisper-font {
+    font-family: 'Whisper', cursive;
+}
+
+.cormorant-font {
+    font-family: 'Cormorant Upright', serif;
+}
+
+.montserrat-font {
+    font-family: 'Montserrat', sans-serif;
+}
+
