@@ -17,7 +17,10 @@ import emailjs from "@emailjs/browser";
 import { useNavigate } from "react-router-dom";
 import { fetchGetAllStaff } from "../../api/staff.api";
 import { useQuery } from "@tanstack/react-query";
+import useScrollToTop from "../../hooks/useScrollToTop";
 export const AboutPage = () => {
+  useScrollToTop()
+  
   const [, dispatch] = useContext(WebContext);
   const navigate = useNavigate();
   const form = useRef();

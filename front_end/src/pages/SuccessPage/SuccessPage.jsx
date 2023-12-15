@@ -1,8 +1,12 @@
 import { useWindowSize } from "@uidotdev/usehooks";
 import Confetti from 'react-confetti'
+import { useNavigate } from "react-router-dom";
 export const SuccessPage = () => {
     const { width, height } = useWindowSize()
-
+    const navigate = useNavigate()
+    const handleGoBack = () => {
+        navigate(-1)
+    }
   return (
     <div className='w-screen h-screen flex items-center justify-center bg-[#A084CF]'>
         <Confetti
@@ -18,6 +22,7 @@ export const SuccessPage = () => {
                 <p className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Đăng ký ưu đãi thành công</p>
                 <p className="font-medium">Cảm ơn bạn đã sử dụng dịch vụ của GODIVA</p>
                 <p className="font-medium">Chuyên viên sẽ liên lạc với bạn trong thời gian sớm nhất</p>
+                <button className="bg-[#A084CF] px-2.5 py-1.5 rounded-md text-white font-semibold mt-5" onClick={handleGoBack}>Quay lại</button>
             </div>
         </div>
     </div>

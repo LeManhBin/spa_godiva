@@ -9,9 +9,10 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchGetAllService } from "../../api/service.api";
 import { convertMoneyToVND } from "../../constants/convertMoney";
 import { fetchGetAllPackage } from "../../api/package.api";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 export const ServicePage = () => {
-
+  useScrollToTop()
   const {data: serviceData} = useQuery({
     queryKey: "GET_SERVICES",
     queryFn: fetchGetAllService,

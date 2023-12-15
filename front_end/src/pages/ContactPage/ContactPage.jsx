@@ -2,7 +2,9 @@ import { useRef } from "react";
 import { Banner, Button, Heading } from "../../components"
 import emailjs from '@emailjs/browser'
 import { useNavigate } from "react-router-dom";
+import useScrollToTop from "../../hooks/useScrollToTop"
 export const ContactPage = () => {
+  useScrollToTop()
   const form = useRef();
   const navigate = useNavigate()
   const sendEmail = (e) => {

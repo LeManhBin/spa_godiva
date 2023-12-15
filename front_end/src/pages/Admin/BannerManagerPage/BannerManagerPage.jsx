@@ -3,6 +3,7 @@ import { fetchGetBanner, fetchUpdateBanner } from "../../../api/banner.api"
 import { IMAGE_URL } from "../../../constants/url";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { HiCloudUpload } from "react-icons/hi";
 
 export const BannerManagerPage = () => {
   const queryClient = useQueryClient()
@@ -51,7 +52,13 @@ export const BannerManagerPage = () => {
       <div className="w-full h-[500px]">
         <img src={`${bannerFile?.preview ? bannerFile.preview : `${IMAGE_URL}/${bannerData?.data?.data[0].image}`}`} alt="banner"  className="w-full h-full object-cover"/>
       </div>
-      <input type="file" id="upload" onChange={handleOnChange }/>
+      <div>
+        <input type="file" id="upload" className="hidden" onChange={handleOnChange }/>
+        <label htmlFor="upload" className="flex items-center justify-between border rounded-md w-40 px-2.5 cursor-pointer py-1.5">
+          <span>Chọn ảnh</span>
+          <HiCloudUpload size={20}/>
+        </label>
+      </div>
       <button className="px-2.5 py-1.5 bg-blue-500 text-white rounded-md font-semibold" onClick={() => handleSubmit(bannerData?.data?.data[0]._id)}>Chỉnh sửa</button>
     </div>
   )

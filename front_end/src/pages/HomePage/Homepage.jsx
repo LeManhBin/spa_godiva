@@ -20,8 +20,10 @@ import { fetchGetAllPackage } from "../../api/package.api";
 import { fetchGetBanner } from "../../api/banner.api";
 import { IMAGE_URL } from "../../constants/url";
 import { fetchGetAllStaff } from "../../api/staff.api";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 const Homepage = () => {
+  useScrollToTop()
   const [, dispatch] = useContext(WebContext)
 
   const handleOpenModel = () => {
