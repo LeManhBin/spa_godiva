@@ -12,8 +12,6 @@ import { Layout, Menu, Button, theme, Dropdown } from 'antd';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 
-
-
 const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {

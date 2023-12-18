@@ -2,7 +2,7 @@ import { useContext, useRef } from "react"
 import Button from "../Button"
 import { WebContext } from "../../contexts/AppContext"
 import emailjs from '@emailjs/browser';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Footer = () => {
     const [, dispatch] = useContext(WebContext)
@@ -29,19 +29,20 @@ export const Footer = () => {
           <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=1748&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""  className="w-full h-full object-cover"/>
           <div className="absolute inset-0 max-w-7xl mx-auto flex items-center justify-between px-10 max-sm:flex-col max-sm:justify-center max-sm:items-start max-sm:gap-5">
               <div>
-                <p className="tracking-widest font-medium text-white">APPOINTMENT</p>
-                <h1 className="text-5xl mt-2.5 text-white cormorant-font max-lg:text-3xl">BOOK YOUR APPOINTMENT</h1>
+                <p className="tracking-widest font-medium text-white uppercase">Ưu đãi cực lớn</p>
+                <h1 className="text-5xl mt-2.5 text-white cormorant-font max-lg:text-3xl">Đặt lịch ngay tại GODIVA</h1>
               </div>
               <Button label="Đặt lịch" mode="dark" className="bg-transparent text-white" onCallBack={handleOpenModel}/>
           </div>
         </div>
         <div className="pt-[100px] max-sm:pt-[50px] max-w-7xl mx-auto flex justify-between flex-wrap gap-5 px-5">
             <div className="flex flex-col items-start">
-                <div className="flex flex-col items-center justify-center text-black">
+                <div className="flex flex-col items-center justify-center text-[#FFD700]">
                     <h1 className="cormorant-font text-2xl font-semibold tracking-wide">GODIVA KOREA</h1>
                     <p className="leading-none montserrat-font">Nơi nhan sắc tái sinh</p>
                 </div>
-                <p className="montserrat-font mt-2.5 font-light">Lorem ipsum dolor sit amet consectetur</p>
+                <p className="montserrat-font mt-2.5 font-light w-[300px]">GODIVA là một trong những thẩm mỹ viện uy tín hàng đầu tại Đà Năng. Với đội ngũ chuyên gia, kỹ thuật viên giàu kinh nghiệm, chúng tôi mang đến cho khách hàng những dịch vụ làm đẹp chất lượng cao, đáp ứng mọi nhu cầu, mong muốn của khách hàng.</p>
+                <Link to={"/login"}>login</Link>
             </div>   
             <div>
                 <h3 className="cormorant-font text-2xl font-medium tracking-widest ">Thông tin liên hệ</h3>
@@ -74,7 +75,6 @@ export const Footer = () => {
                     <Button type="submit" label="Gửi"/>
                 </form>
             </div>
-
         </div>
     </footer>
   )

@@ -39,21 +39,17 @@ const UpdateServiceModel = ({setIsOpen, idTerm}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(serviceState.priceBeforeDiscount < serviceState.priceAfterDiscount) {
-            toast.warning("Giá khuyến mãi phải nhỏ hơn giá gốc")
-        }else {
-            updateService.mutate({idTerm ,serviceState}, {
-                onSuccess: (res) => {
-                    if(res.status === 200) {
-                        toast.success("Cập nhật dịch vụ thành công!")
-                        queryClient.invalidateQueries({ queryKey: ['GET_SERVICES'] })
-                        setIsOpen(false)
-                    }else {
-                        toast.error("Cập nhật dịch vụ thất bại")
-                    }
+        updateService.mutate({idTerm ,serviceState}, {
+            onSuccess: (res) => {
+                if(res.status === 200) {
+                    toast.success("Cập nhật dịch vụ thành công!")
+                    queryClient.invalidateQueries({ queryKey: ['GET_SERVICES'] })
+                    setIsOpen(false)
+                }else {
+                    toast.error("Cập nhật dịch vụ thất bại")
                 }
-            })
-        }
+            }
+        })
     }
   return (
     <div className="relative p-4 w-full max-w-md max-h-full">

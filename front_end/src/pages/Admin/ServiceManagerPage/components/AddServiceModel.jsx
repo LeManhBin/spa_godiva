@@ -28,21 +28,17 @@ const AddServiceModel = ({setIsOpen}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(serviceState.priceBeforeDiscount < serviceState.priceAfterDiscount) {
-            toast.warning("Giá khuyến mãi phải nhỏ hơn giá gốc")
-        }else {
-            addServiceMutation.mutate(serviceState, {
-                onSuccess: (res) => {
-                    if(res.status === 200) {
-                        toast.success("Thêm dịch vụ thành công!")
-                        queryClient.invalidateQueries({ queryKey: ['GET_SERVICES'] })
-                        setIsOpen(false)
-                    }else {
-                        toast.error("Thêm dịch vụ thất bại")
-                    }
+        addServiceMutation.mutate(serviceState, {
+            onSuccess: (res) => {
+                if(res.status === 200) {
+                    toast.success("Thêm dịch vụ thành công!")
+                    queryClient.invalidateQueries({ queryKey: ['GET_SERVICES'] })
+                    setIsOpen(false)
+                }else {
+                    toast.error("Thêm dịch vụ thất bại")
                 }
-            })
-        }
+            }
+        })
         
     }
   return (
@@ -68,7 +64,7 @@ const AddServiceModel = ({setIsOpen}) => {
                     </div>
                     <div className="col-span-2 sm:col-span-1">
                         <label htmlFor="priceBeforeDiscount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Giá gốc</label>
-                        <input type="number" name="priceBeforeDiscount" id="priceBeforeDiscount" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required value={serviceState.priceBeforeDiscount} onChange={handleOnChange}/>
+                        <input type="number" name="priceBeforeDiscount" id="priceBeforeDiscount" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" value={serviceState.priceBeforeDiscount} onChange={handleOnChange}/>
                     </div>
                     <div className="col-span-2 sm:col-span-1">
                         <label htmlFor="priceAfterDiscount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Giá đã giảm</label>

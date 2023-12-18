@@ -18,6 +18,11 @@ import { useNavigate } from "react-router-dom";
 import { fetchGetAllStaff } from "../../api/staff.api";
 import { useQuery } from "@tanstack/react-query";
 import useScrollToTop from "../../hooks/useScrollToTop";
+import about1 from "../../assets/images/about1.jpg";
+import about2 from "../../assets/images/about2.jpg";
+import about3 from "../../assets/images/about3.jpg";
+import MotionFade from "../../components/MotionFade";
+
 export const AboutPage = () => {
   useScrollToTop()
   
@@ -56,43 +61,48 @@ export const AboutPage = () => {
 
   return (
     <div className="">
-      <Banner label="Giới thiệu" from="Trang chủ" to="Giới thiệu" />
-      <section className="max-w-7xl mx-auto py-24 max-sm:py-12 px-5">
-        <div className="flex gap-10 max-sm:flex-col">
-          <div className="flex-1">
-            <Heading
-              label="Về chúng tôi"
-              title="Điều trị giúp bạn thoải mái hơn"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra eget massa ut mattis. Sed eget molestie lacus. Vivamus vulputate in eros vitae tempor."
-              position="start"
-            />
-            <Button
-              label="Đặt lịch"
-              className="mt-10"
-              onCallBack={handleOpenModel}
-            />
+      <Banner banner="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="Giới thiệu" from="Trang chủ" to="Giới thiệu" />
+      <MotionFade>
+        <section className="max-w-7xl mx-auto py-24 max-sm:py-12 px-5">
+          <div className="flex gap-10 max-sm:flex-col">
+            <div className="flex-1">
+              <Heading
+                label="Về chúng tôi"
+                title="Điều trị giúp bạn thoải mái hơn"
+                position="start"
+                className="text-start"
+              />
+              <ul className="font-thin w-[70%]">
+                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]"/>Công nghệ tắm trắng tiên tiến giúp da trắng sáng bật tone chỉ sau 1 liệu trình.</li>
+                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]"/>Massage trị liệu chuyên sâu đánh tan cơn đau, giải tỏa căng thẳng, thư giãn toàn thân.</li>
+                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]"/>Liệu trình chăm sóc da mặt bằng tinh chất thiên nhiên giúp da căng mịn, giảm nếp nhăn, trẻ hóa toàn diện.</li>
+                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]"/>Giảm béo không phẫu thuật an toàn hiệu quả, lấy lại vóc dáng thon gọn nhanh chóng.</li>
+              </ul>
+              <Button
+                label="Đặt lịch"
+                className="mt-10"
+                onCallBack={handleOpenModel}
+              />
+            </div>
+            <div className="flex-1">
+              <img
+                src={about2}
+                alt=""
+              />
+            </div>
           </div>
-          <div className="flex-1">
-            <img
-              src="https://askproject.net/blanche/wp-content/uploads/sites/77/2022/05/health-and-spa-K7WXBN3.jpg"
-              alt=""
-            />
-          </div>
-        </div>
-      </section>
+        </section>
+      </MotionFade>
       <section className="px-5">
         <div className="flex flex-col items-center py-20 max-sm:px-12 gap-5">
           <HiOutlineBadgeCheck size={40} className="" />
           <p className="max-w-2xl text-center italic text-xl font-light">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime,
-            exercitationem dolorem modi repudiandae voluptatum itaque vitae quia
-            aut atque aperiam autem quibusdam! Cum quis expedita quibusdam
-            cumque corporis doloremque deleniti.
+            Tại GODIVA, chúng tôi cam kết mang đến cho khách hàng những dịch vụ thẩm mỹ chất lượng cao, giá cả phải chăng và đội ngũ nhân viên chuyên nghiệp. Hãy liên hệ với chúng tôi ngay hôm nay để được tư vấn miễn phí!
           </p>
           <p className="whisper-font font-medium text-5xl">Yến Như</p>
         </div>
       </section>
-      <section className="bg-[#F2F1EB] pb-10">
+      <section className="bg-[#61168C] pb-10">
         <div className="flex max-w-7xl mx-auto py-20 px-5 max-sm:flex-col max-sm:gap-10 max-sm:py-10">
           {SERVICE_WIDGET.map((widget) => {
             return (
@@ -119,7 +129,7 @@ export const AboutPage = () => {
           </div>
         </div>
       </section>
-      <section className=" py-24 px-5 max-sm:py-12">
+      <section className="py-24 px-5 max-sm:py-12">
         <div className="max-w-7xl mx-auto">
           <Heading
             label="CHUYÊN VIÊN"
@@ -207,6 +217,7 @@ export const AboutPage = () => {
         </Swiper>
       </div>
       <div className="max-w-7xl mx-auto px-5">
+        <MotionFade>
         <div className="flex gap-10 max-sm:flex-col">
           <div className="flex-1">
             <Heading
@@ -222,8 +233,7 @@ export const AboutPage = () => {
                   Giá cả phải chăng
                 </h3>
                 <p className="montserrat-font mt-2.5 font-light">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Maiores fuga minima obcaecati.
+                  Chúng tôi cam kết đem đến cho khách hàng những trải nghiệm làm đẹp tuyệt vời nhất với chi phí hợp lý nhất.
                 </p>
               </div>
             </div>
@@ -234,8 +244,7 @@ export const AboutPage = () => {
                   Điều trị đặc biệt
                 </h3>
                 <p className="montserrat-font mt-2.5 font-light">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Maiores fuga minima obcaecati.
+                  Chúng tôi luôn tìm kiếm những phương pháp điều trị mới nhất và hiệu quả nhất để mang lại cho khách hàng những kết quả tốt nhất.
                 </p>
               </div>
             </div>
@@ -246,73 +255,75 @@ export const AboutPage = () => {
                   Đội ngũ nhân viên chuyên nghiệp
                 </h3>
                 <p className="montserrat-font mt-2.5 font-light">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Maiores fuga minima obcaecati.
+                Đội ngũ nhân viên của chúng tôi được đào tạo bài bản và có kinh nghiệm, luôn tận tâm, chu đáo và sẵn sàng đáp ứng mọi nhu cầu của khách hàng
                 </p>
               </div>
             </div>
           </div>
           <div className="flex-1">
             <img
-              src="https://askproject.net/blanche/wp-content/uploads/sites/77/2022/05/health-and-spa-K7WXBN3.jpg"
+              src={about1}
               alt=""
             />
           </div>
         </div>
-        <div className="flex flex-row-reverse max-sm:flex-col gap-10 mt-[100px] max-sm:mt-[50px]">
-          <div className="flex-1">
-            <Heading
-              label="FAQS"
-              title="CÁC CÂU HỎI THƯỜNG GẶP"
-              position="start"
-              className={"max-sm:mx-auto"}
-            />
-            <div className="flex flex-col gap-5">
-              <details className="p-2 border">
-                <summary className="cormorant-font font-semibold leading-none text-lg">
-                  Làm cách nào để đặt lịch hẹn tại GODIVA ?
-                </summary>
-                <p className="ontserrat-font mt-2.5 font-light">
-                  Epcot is a theme park at Walt Disney World Resort featuring
-                  exciting attractions, international pavilions, award-winning
-                  fireworks and seasonal special events.
-                </p>
-              </details>
-              <details className="p-2 border">
-                <summary className="cormorant-font font-semibold leading-none text-lg">
-                  Tại GODIVA có những dịch vụ nào ?
-                </summary>
-                <p className="ontserrat-font mt-2.5 font-light">
-                  Epcot is a theme park at Walt Disney World Resort featuring
-                  exciting attractions, international pavilions, award-winning
-                  fireworks and seasonal special events.
-                </p>
-              </details>
-              <details className="p-2 border">
-                <summary className="cormorant-font font-semibold leading-none text-lg">
-                  Tư vấn phương pháp điều trị phù hợp ?
-                </summary>
-                <p className="ontserrat-font mt-2.5 font-light">
-                  Epcot is a theme park at Walt Disney World Resort featuring
-                  exciting attractions, international pavilions, award-winning
-                  fireworks and seasonal special events.
-                </p>
-              </details>
+        </MotionFade>
+        <MotionFade>
+          <div className="flex flex-row-reverse max-sm:flex-col gap-10 mt-[100px] max-sm:mt-[50px]">
+            <div className="flex-1">
+              <Heading
+                label="FAQS"
+                title="CÁC CÂU HỎI THƯỜNG GẶP"
+                position="start"
+                className={"max-sm:mx-auto"}
+              />
+              <div className="flex flex-col gap-5">
+                <details className="p-2 border">
+                  <summary className="cormorant-font font-semibold leading-none text-lg">
+                    Làm cách nào để đặt lịch hẹn tại GODIVA ?
+                  </summary>
+                  <p className="ontserrat-font mt-2.5 font-light">
+                    Epcot is a theme park at Walt Disney World Resort featuring
+                    exciting attractions, international pavilions, award-winning
+                    fireworks and seasonal special events.
+                  </p>
+                </details>
+                <details className="p-2 border">
+                  <summary className="cormorant-font font-semibold leading-none text-lg">
+                    Tại GODIVA có những dịch vụ nào ?
+                  </summary>
+                  <p className="ontserrat-font mt-2.5 font-light">
+                    Epcot is a theme park at Walt Disney World Resort featuring
+                    exciting attractions, international pavilions, award-winning
+                    fireworks and seasonal special events.
+                  </p>
+                </details>
+                <details className="p-2 border">
+                  <summary className="cormorant-font font-semibold leading-none text-lg">
+                    Tư vấn phương pháp điều trị phù hợp ?
+                  </summary>
+                  <p className="ontserrat-font mt-2.5 font-light">
+                    Epcot is a theme park at Walt Disney World Resort featuring
+                    exciting attractions, international pavilions, award-winning
+                    fireworks and seasonal special events.
+                  </p>
+                </details>
+              </div>
+            </div>
+            <div className="flex-1">
+              <img
+                src={about3}
+                alt=""
+              />
             </div>
           </div>
-          <div className="flex-1">
-            <img
-              src="https://askproject.net/blanche/wp-content/uploads/sites/77/2022/05/health-and-spa-K7WXBN3.jpg"
-              alt=""
-            />
-          </div>
-        </div>
+        </MotionFade>
       </div>
       <div className="max-w-7xl mx-auto bg-[#F2F1EB] py-[100px] mt-[100px] max-sm:py-[50px] px-5">
         <Heading
           label="NEWSLETTER"
           title="Đăng ký nhận ưu đãi ngay"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          content="Liên hệ với chung tôi để nhận ưu đãi và dịch vụ tốt nhất"
         />
         <form
           action=""

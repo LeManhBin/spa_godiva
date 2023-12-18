@@ -4,15 +4,9 @@ export const createService = async (req, res) => {
     try {
         const {name, description, priceBeforeDiscount, priceAfterDiscount} = req.body;
 
-        if(!name || !description) {
+        if(!name) {
             return res.status(400).json({
                 message: 'Bad request'
-            })
-        }
-
-        if(Number(priceBeforeDiscount) < Number(priceAfterDiscount)) {
-            return res.status(400).json({
-                message: 'The price before the promotion must be less than the price after the promotion'
             })
         }
 
@@ -119,7 +113,7 @@ export const updateService = async (req, res) => {
             })
         }
 
-        if(!name || !description || !priceAfterDiscount) {
+        if(!name) {
             return res.status(400).json({
                 message: 'Bad request'
             })

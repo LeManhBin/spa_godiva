@@ -25,8 +25,8 @@ export const ServicePage = () => {
 
   return (
     <div>
-        <Banner label="Dịch vụ của chúng tôi" from="Trang chủ" to="Dịch vụ"/>
-        <section className="bg-[#F2F1EB]">
+        <Banner banner="https://images.unsplash.com/photo-1563865436914-44ee14a35e4b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="Dịch vụ của chúng tôi" from="Trang chủ" to="Dịch vụ"/>
+        <section className="bg-[#61168C]">
           <div className="flex max-w-7xl mx-auto py-20 px-5 max-sm:flex-col max-sm:gap-10 max-sm:py-10">
           {SERVICE_WIDGET.map((widget) => {
             return (
@@ -41,7 +41,7 @@ export const ServicePage = () => {
           </div>
         </section>
         <section className="max-w-7xl mx-auto py-24 max-sm:py-12 p-5">
-          <Heading label="DỊCH VỤ CỦA CHÚNG TÔI" title="DETOX INSIDE OUT" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar."/>
+          <Heading label="DỊCH VỤ CỦA CHÚNG TÔI" title="Danh sách dịch vụ" content="Tắm trắng, massage, chăm sóc da mặt - Giúp bạn trẻ hóa làn da, tự tin tỏa sáng..."/>
           <div className="mt-20 grid grid-cols-2 gap-16 max-sm:grid-cols-1">
             {
               serviceData?.data?.data.map((service) => {
@@ -69,9 +69,9 @@ export const ServicePage = () => {
             }
           </div>
         </section>
-        <section className="bg-[#F2F1EB] py-24 max-sm:py-12 px-5">
+        <section className="bg-[#61168C] py-24 max-sm:py-12 px-5">
           <div className="max-w-7xl mx-auto">
-            <Heading label="SPECIAL OFFER" title="PRICING PACKAGE" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar."/>
+          <Heading label="ƯU ĐÃI ĐẶC BIỆT" title="Danh sách gói dịch vụ" content="Các gói dịch vụ siêu ưu đãi từ GODIVA" className="text-white"/>
             <div className="flex items-center justify-center gap-10 mt-[75px]">
               <Swiper
               slidesPerView={1}
