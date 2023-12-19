@@ -4,11 +4,12 @@ import {
   Button,
   ExpertCard,
   Heading,
+  NewsCard,
   ServiceWidget,
+  Slide,
 } from "../../components";
-import {  REVIEW, SERVICE_WIDGET } from "../../constants/fakeData";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import {  SERVICE_WIDGET } from "../../constants/fakeData";
+import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useContext, useRef } from "react";
@@ -22,6 +23,7 @@ import about1 from "../../assets/images/about1.jpg";
 import about2 from "../../assets/images/about2.jpg";
 import about3 from "../../assets/images/about3.jpg";
 import MotionFade from "../../components/MotionFade";
+import { fetchGetAllNews } from "../../api/news.api";
 
 export const AboutPage = () => {
   useScrollToTop()
@@ -37,6 +39,11 @@ export const AboutPage = () => {
   const {data: staffData} = useQuery({
     queryKey: ["GET_STAFF"],
     queryFn: fetchGetAllStaff,
+  })
+
+  const { data: newsData } = useQuery({
+    queryKey: ["GET_NEWS"],
+    queryFn: fetchGetAllNews,
   })
 
   const sendEmail = (e) => {
@@ -102,7 +109,7 @@ export const AboutPage = () => {
           <p className="whisper-font font-medium text-5xl">Yến Như</p>
         </div>
       </section>
-      <section className="bg-[#61168C] pb-10">
+      <section className="bg-mainColor pb-10">
         <div className="flex max-w-7xl mx-auto py-20 px-5 max-sm:flex-col max-sm:gap-10 max-sm:py-10">
           {SERVICE_WIDGET.map((widget) => {
             return (
@@ -115,52 +122,29 @@ export const AboutPage = () => {
             );
           })}
         </div>
-        <div className="max-w-7xl mx-auto">
-          <div className="h-[500px] w-[100%] max-sm:h-[400px] rounded mt-20 px-5">
-            <iframe
-              width="100%"
-              height="100%"
-              src="https://www.youtube.com/embed/8zYz_TYCnkc?si=xlP2r606zMotkbfc"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </div>
       </section>
+      <div className="max-w-7xl mx-auto px-5 mt-10">
+          <Heading
+            label="SỰ KIỆN CỦA CHÚNG TÔI"
+            title="Danh sách sự kiện"
+          />
+          <Slide>
+              {newsData?.data?.data?.map((news) => {
+                return (
+                  <SwiperSlide key={news._id}>
+                    <NewsCard data={news}/>
+                  </SwiperSlide>
+                );
+              })}
+          </Slide>
+      </div>
       <section className="py-24 px-5 max-sm:py-12">
         <div className="max-w-7xl mx-auto">
           <Heading
             label="CHUYÊN VIÊN"
             title="GẶP GỠ CHUYÊN GIA CỦA CHÚNG TÔI"
           />
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={10}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            navigation={true}
-            loop={true}
-            modules={[Autoplay, Pagination, Navigation]}
-            breakpoints={{
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 20,
-              },
-              1024: {
-                slidesPerView: 4,
-                spaceBetween: 20,
-              },
-            }}
-            className="mt-10"
-          >
+          <Slide>
             {staffData?.data.data.map((expert) => {
               return (
                 <SwiperSlide key={expert._id}>
@@ -172,10 +156,10 @@ export const AboutPage = () => {
                 </SwiperSlide>
               );
             })}
-          </Swiper>
+          </Slide>
         </div>
       </section>
-      <div className="py-[100px] max-sm:py-14 px-5">
+      {/* <div className="py-[100px] max-sm:py-14 px-5">
         <HiOutlineBadgeCheck size={40} className="mx-auto" />
         <Swiper
           slidesPerView={1}
@@ -215,7 +199,7 @@ export const AboutPage = () => {
             );
           })}
         </Swiper>
-      </div>
+      </div> */}
       <div className="max-w-7xl mx-auto px-5">
         <MotionFade>
         <div className="flex gap-10 max-sm:flex-col">
@@ -279,34 +263,16 @@ export const AboutPage = () => {
               />
               <div className="flex flex-col gap-5">
                 <details className="p-2 border">
-                  <summary className="cormorant-font font-semibold leading-none text-lg">
-                    Làm cách nào để đặt lịch hẹn tại GODIVA ?
-                  </summary>
-                  <p className="ontserrat-font mt-2.5 font-light">
-                    Epcot is a theme park at Walt Disney World Resort featuring
-                    exciting attractions, international pavilions, award-winning
-                    fireworks and seasonal special events.
-                  </p>
+                  <summary className="cormorant-font font-semibold leading-none text-lg">Làm cách nào để đặt lịch hẹn tại GODIVA ?</summary>
+                  <p className="ontserrat-font mt-2.5 font-light">Bạn có thể liên hệ với chúng tôi qua page của GODIVA, hoặc gọi điện đến hotline, hoặc chọn chức năng đặt lịch, đội ngũ nhân viên sẽ tư vấn bạn trong thời gian sớm nhất</p>
                 </details>
                 <details className="p-2 border">
-                  <summary className="cormorant-font font-semibold leading-none text-lg">
-                    Tại GODIVA có những dịch vụ nào ?
-                  </summary>
-                  <p className="ontserrat-font mt-2.5 font-light">
-                    Epcot is a theme park at Walt Disney World Resort featuring
-                    exciting attractions, international pavilions, award-winning
-                    fireworks and seasonal special events.
-                  </p>
+                  <summary className="cormorant-font font-semibold leading-none text-lg">Tại GODIVA có những dịch vụ nào ?</summary>
+                  <p className="ontserrat-font mt-2.5 font-light">Bao gốm dịch vụ nội khoa và nha khoa và dịch vụ thư giãn dưỡng sinh</p>
                 </details>
                 <details className="p-2 border">
-                  <summary className="cormorant-font font-semibold leading-none text-lg">
-                    Tư vấn phương pháp điều trị phù hợp ?
-                  </summary>
-                  <p className="ontserrat-font mt-2.5 font-light">
-                    Epcot is a theme park at Walt Disney World Resort featuring
-                    exciting attractions, international pavilions, award-winning
-                    fireworks and seasonal special events.
-                  </p>
+                  <summary className="cormorant-font font-semibold leading-none text-lg">GODIVA hiện đang có ưu đãi giảm giá nào</summary>
+                  <p className="ontserrat-font mt-2.5 font-light">GODIVA hiện tại đang có siêu ưu đãi lên đến 85%</p>
                 </details>
               </div>
             </div>

@@ -10,7 +10,7 @@ export const Header = () => {
   }
   
   return (
-    <div className="fixed z-50 top-0 left-0 right-0 h-[90px]  mx-auto flex items-center justify-between border-b border-white px-10 bg-[#61168C] mb-[90px]">
+    <div className="fixed z-50 top-0 left-0 right-0 h-[90px]  mx-auto flex items-center justify-between border-b border-white px-10 bg-mainColor mb-[90px]">
         <div className="flex flex-col items-center justify-center text-[#FFD700]">
             <h1 className="cormorant-font text-2xl font-semibold tracking-wide">GODIVA KOREA</h1>
             <p className="leading-none montserrat-font">Nơi nhan sắc tái sinh</p>
@@ -29,6 +29,9 @@ export const Header = () => {
             </NavLink>
             <NavLink to={"/service"} className={({isActive}) => isActive && 'text-[#FFA732]' } onClick={handleToggleNavbar}>
               <li className="uppercase font-medium text-sm cursor-pointer tracking-widest">Dịch vụ</li>
+            </NavLink>
+            <NavLink to={"/news"} className={({isActive}) => isActive && 'text-[#FFA732]' } onClick={handleToggleNavbar}>
+              <li className="uppercase font-medium text-sm cursor-pointer tracking-widest">Tin tức</li>
             </NavLink>
             <NavLink to={"/contact"} className={({isActive}) => isActive && 'text-[#FFA732]' } onClick={handleToggleNavbar}>
               <li className="uppercase font-medium text-sm cursor-pointer tracking-widest">Liên hệ</li>

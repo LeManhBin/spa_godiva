@@ -3,6 +3,7 @@ import Button from "../Button"
 import { WebContext } from "../../contexts/AppContext"
 import emailjs from '@emailjs/browser';
 import { Link, useNavigate } from "react-router-dom";
+import { HiClock, HiLocationMarker, HiMail, HiPhone } from "react-icons/hi";
 
 export const Footer = () => {
     const [, dispatch] = useContext(WebContext)
@@ -47,10 +48,11 @@ export const Footer = () => {
             <div>
                 <h3 className="cormorant-font text-2xl font-medium tracking-widest ">Thông tin liên hệ</h3>
                 <ul className="flex flex-col gap-2.5 mt-2.5 montserrat-font font-light">
-                    <li className="">89 Lê Đình Lý, phường Vĩnh Trung, Quận Thanh Khê, Tp Đà Nẵng</li>
-                    <li className="tracking-widest ">0911110562</li>
-                    <li className="">thammyhanquocgodiva@gmail.com</li>
-                    <li className="">8:30 đến 19:30 hàng ngày</li>
+                    <li className="flex"><HiLocationMarker size={20} className="text-mainColor"/> 89 Lê Đình Lý, phường Vĩnh Trung, Quận Thanh Khê, Tp Đà Nẵng</li>
+                    <li className="flex"><HiLocationMarker size={20} className="text-mainColor"/> 67 Hùng Vương, phường Vĩnh Trung, Quận Thanh Khê, Tp Đà Nẵng</li>
+                    <li className="tracking-widest flex"><HiPhone size={20} className="text-mainColor" /> 0911110562</li>
+                    <li className="flex"> <HiMail size={20} className="text-mainColor"/>thammyhanquocgodiva@gmail.com</li>
+                    <li className="flex"> <HiClock size={20} className="text-mainColor"/> 8:30 đến 19:30 hàng ngày</li>
                 </ul>
             </div>
             <div className="">

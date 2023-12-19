@@ -6,7 +6,8 @@ import {
   FileImageOutlined,
   LineChartOutlined,
   UsergroupAddOutlined,
-  AuditOutlined
+  AuditOutlined,
+  ReadOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme, Dropdown } from 'antd';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -66,6 +67,11 @@ const AdminLayout = () => {
               key: '/admin/service-package',
               icon: <AuditOutlined />,
               label: <Link to="/admin/service-package?page=1&limit=5">Quản lý gói dịch vụ</Link>,
+            },
+            {
+              key: '/admin/news',
+              icon: <ReadOutlined />,
+              label: <Link to="/admin/news?page=1&limit=4">Quản lý tin tức</Link>,
             },
             {
               key: '/admin/staff',

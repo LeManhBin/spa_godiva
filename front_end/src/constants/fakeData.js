@@ -55,7 +55,7 @@ export const EXPERTS = [
 export const REVIEW = [
     {
         id: 1,
-        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, exercitationem dolorem modi repudiandae voluptatum itaque vitae quia aut atque aperiam autem quibusdam! Cum quis expedita quibusdam cumque corporis doloremque deleniti.",
+        content: "mình đã từng làm dịch vụ trị mụn tại GODIVA và rất hiệu quả. Sau một liệu trình điều trị, mụn trên mặt mình đã giảm đi đáng kể, da cũng trở nên sáng mịn hơn. Mình rất hài lòng với kết quả và sẽ tiếp tục sử dụng các dịch vụ khác của GODIVA.",
         name: "Mạnh Bin",
         positon: "Developer",
         avatar: "https://mighty.tools/mockmind-api/content/human/7.jpg"

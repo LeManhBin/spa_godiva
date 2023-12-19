@@ -1,10 +1,7 @@
-import { HiOutlineBadgeCheck } from "react-icons/hi"
-import { Banner, Heading, ServicePackage, ServiceWidget } from "../../components"
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import { REVIEW, SERVICE_WIDGET } from "../../constants/fakeData";
+
+import { Banner, Heading, ServicePackage, ServiceWidget, Slide } from "../../components"
+import { SwiperSlide } from "swiper/react";
+import { SERVICE_WIDGET } from "../../constants/fakeData";
 import { useQuery } from "@tanstack/react-query";
 import { fetchGetAllService } from "../../api/service.api";
 import { convertMoneyToVND } from "../../constants/convertMoney";
@@ -26,7 +23,7 @@ export const ServicePage = () => {
   return (
     <div>
         <Banner banner="https://images.unsplash.com/photo-1563865436914-44ee14a35e4b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="Dịch vụ của chúng tôi" from="Trang chủ" to="Dịch vụ"/>
-        <section className="bg-[#61168C]">
+        <section className="bg-mainColor">
           <div className="flex max-w-7xl mx-auto py-20 px-5 max-sm:flex-col max-sm:gap-10 max-sm:py-10">
           {SERVICE_WIDGET.map((widget) => {
             return (
@@ -69,47 +66,23 @@ export const ServicePage = () => {
             }
           </div>
         </section>
-        <section className="bg-[#61168C] py-24 max-sm:py-12 px-5">
+        <section className="bg-mainColor py-24 max-sm:py-12 px-5">
           <div className="max-w-7xl mx-auto">
           <Heading label="ƯU ĐÃI ĐẶC BIỆT" title="Danh sách gói dịch vụ" content="Các gói dịch vụ siêu ưu đãi từ GODIVA" className="text-white"/>
             <div className="flex items-center justify-center gap-10 mt-[75px]">
-              <Swiper
-              slidesPerView={1}
-              spaceBetween={10}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-              }}
-              loop={true}
-              modules={[Autoplay, Pagination, Navigation]}
-              breakpoints={{
-                640: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                768: {
-                  slidesPerView: 3,
-                  spaceBetween: 20,
-                },
-                1024: {
-                  slidesPerView: 4,
-                  spaceBetween: 20,
-                },
-              }}
-              className="mt-10"
-            >
-              {packageData?.data?.data.map((pack) => {
-                return (
-                  <SwiperSlide key={pack?._id}>
-                    <ServicePackage packageData={pack}/>
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
+              <Slide>
+                {packageData?.data?.data.map((pack) => {
+                  return (
+                    <SwiperSlide key={pack?._id}>
+                      <ServicePackage packageData={pack}/>
+                    </SwiperSlide>
+                  );
+                })}
+              </Slide>
             </div>
           </div>
         </section>
-        <div className="py-[100px] max-sm:py-[50px] px-5">
+        {/* <div className="py-[100px] max-sm:py-[50px] px-5">
             <HiOutlineBadgeCheck size={40} className="mx-auto"/>
             <Swiper
               slidesPerView={1}
@@ -149,7 +122,7 @@ export const ServicePage = () => {
                 );
               })}
             </Swiper>
-          </div>
+          </div> */}
     </div>
   )
 }

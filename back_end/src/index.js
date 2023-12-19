@@ -8,6 +8,8 @@ import authRouter from './routes/authRouter'
 import packageRouter from './routes/servicePackage'
 import bannerRouter from './routes/mainBannerRouter'
 import staffRouter from './routes/staffRouter'
+import newsRouter from './routes/newsRouter'
+
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -23,6 +25,7 @@ app.use('/api/auth', authRouter)
 app.use('/api', packageRouter) 
 app.use('/api', bannerRouter) 
 app.use('/api', staffRouter) 
+app.use('/api', newsRouter) 
 
 app.listen(8080,() => {
     console.log(`Server is running on port 8080`);

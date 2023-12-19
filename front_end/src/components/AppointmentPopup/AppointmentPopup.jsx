@@ -4,7 +4,7 @@ import { HiOutlineX } from "react-icons/hi";
 import { WebContext } from "../../contexts/AppContext";
 import emailjs from '@emailjs/browser';
 import { useNavigate } from "react-router-dom";
-
+import banner1 from "../../assets/images/banner1.jpg"
 export const AppointmentPopup = () => {
     const [, dispatch] = useContext(WebContext)
     const form = useRef();
@@ -29,10 +29,11 @@ export const AppointmentPopup = () => {
         <div className="absolute inset-0 bg-black opacity-70" onClick={handleCloseModel}>
         </div>
         <div className="relative flex items-center gap-2.5 w-[600px] h-[400px] z-20 bg-white max-sm:flex-col max-sm:h-[600px] max-sm:w-[90%]">
-            <HiOutlineX size={20} className="absolute top-2.5 right-2.5 cursor-pointer" onClick={handleCloseModel}/>
-            <div className="w-[50%] h-full bg-slate-400 max-sm:w-full">
+            <HiOutlineX size={20} className="absolute top-2.5 right-2.5 cursor-pointer max-sm:text-white" onClick={handleCloseModel}/>
+            <div className="w-[50%] h-full max-sm:h-[40%] bg-slate-400 max-sm:w-full">
+                <img src={banner1} alt="" className="w-full h-full object-cover"/>
             </div>
-            <form action="" ref={form} className="mt-10 flex flex-col gap-5 p-5" onSubmit={sendEmail}>
+            <form action="" ref={form} className="mt-10 flex flex-col gap-5 p-5 flex-grow" onSubmit={sendEmail}>
                 <h1 className="text-center text-2xl cormorant-font font-semibold">Đăng ký nhận ưu đãi ngay</h1>
                 <input type="text" required placeholder="Họ và tên" name="user_name" className="w-full outline-none py-1.5 border-b italic cormorant-font"/>
                 <div className="flex gap-2.5">

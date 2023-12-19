@@ -13,6 +13,9 @@ import ServicePackageMangerPage from "./pages/Admin/ServicePackageMangerPage"
 import LoginPage from "./pages/LoginPage"
 import BannerManagerPage from "./pages/Admin/BannerManagerPage"
 import StaffManagerPage from "./pages/Admin/StaffManagerPage"
+import NewsPage from "./pages/NewsPage"
+import NewsDetail from "./pages/NewsDetail"
+import NewsManagerPage from "./pages/Admin/NewsManagerPage"
 
 function App() {
   return (
@@ -23,6 +26,8 @@ function App() {
             <Route index element={<Homepage/>}/>
             <Route path="/about" element={<AboutPage/>}/>
             <Route path="/service" element={<ServicePage/>}/>
+            <Route path="/news" element={<NewsPage/>}/>
+            <Route path="/news/:id" element={<NewsDetail/>}/>
             <Route path="/contact" element={<ContactPage/>}/>
           </Route>
           <Route path="/admin" element={<AdminLayout/>} >
@@ -30,6 +35,7 @@ function App() {
             <Route path="service" element={<ServiceMangerPage/>}/>
             <Route path="service-package" element={<ServicePackageMangerPage/>}/>
             <Route path="staff" element={<StaffManagerPage/>}/>
+            <Route path="news" element={<NewsManagerPage/>}/>
             <Route path="banner" element={<BannerManagerPage/>}/>
           </Route>
           <Route path="/success" element={<SuccessPage/>}/>

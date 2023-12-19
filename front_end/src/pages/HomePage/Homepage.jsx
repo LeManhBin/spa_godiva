@@ -2,13 +2,14 @@ import {
   Button,
   ExpertCard,
   Heading,
+  NewsCard,
   ServicePackage,
   ServiceWidget,
+  Slide,
 } from "../../components";
 import { HiOutlineBadgeCheck, HiOutlineCheck } from "react-icons/hi";
-import { REVIEW, SERVICE_WIDGET, serviceExperience } from "../../constants/fakeData";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { SERVICE_WIDGET, serviceExperience } from "../../constants/fakeData";
+import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useContext } from "react";
@@ -28,40 +29,46 @@ import banner4 from "../../assets/images/banner4.jpg"
 import about3 from "../../assets/images/about3.jpg";
 import about2 from "../../assets/images/about2.jpg";
 import MotionFade from "../../components/MotionFade";
+import { fetchGetAllNews } from "../../api/news.api";
 const Homepage = () => {
   useScrollToTop()
   const [, dispatch] = useContext(WebContext)
 
   const handleOpenModel = () => {
-      dispatch({type: "OPEN_MODEL"})
+    dispatch({ type: "OPEN_MODEL" })
   }
 
-  const {data: serviceData} = useQuery({
+  const { data: serviceData } = useQuery({
     queryKey: "GET_SERVICES",
     queryFn: fetchGetAllService,
 
   })
 
-  const {data: packageData} = useQuery({
+  const { data: packageData } = useQuery({
     queryKey: "GET_PACKAGE",
     queryFn: fetchGetAllPackage,
   })
 
-  const {data: bannerData} = useQuery({
+  const { data: bannerData } = useQuery({
     queryKey: ["GET_BANNER"],
     queryFn: fetchGetBanner,
   })
 
-  const {data: staffData} = useQuery({
+  const { data: staffData } = useQuery({
     queryKey: ["GET_STAFF"],
     queryFn: fetchGetAllStaff,
   })
+
+  const { data: newsData } = useQuery({
+    queryKey: ["GET_NEWS"],
+    queryFn: fetchGetAllNews,
+  })
   return (
     <div className="">
-        <div className=" relative top-[90px] bg-[#61168C]">
-          <img src={`${IMAGE_URL}/${bannerData?.data?.data[0].image}`} alt="" className="w-full h-full object-cover" />
-        </div>
-      <section className="bg-[#61168C]">
+      <div className=" relative top-[90px] bg-mainColor">
+        <img src={`${IMAGE_URL}/${bannerData?.data?.data[0].image}`} alt="" className="w-full h-full object-cover" />
+      </div>
+      <section className="bg-mainColor">
         <div className="flex max-w-7xl mx-auto py-20 px-10 max-sm:flex-col max-sm:gap-10">
           {SERVICE_WIDGET.map((widget) => {
             return (
@@ -85,7 +92,7 @@ const Homepage = () => {
           <div className="mt-20 grid grid-cols-2 gap-16 max-sm:grid-cols-1">
             {
               serviceExperience.map((service) => {
-                return(
+                return (
                   <div key={service?._id} className="flex items-center justify-between border-b pb-4 gap-5">
                     <div>
                       <p className="text-xl cormorant-font font-semibold">
@@ -181,7 +188,7 @@ const Homepage = () => {
           <div className="mt-20 grid grid-cols-2 gap-16 max-sm:grid-cols-1">
             {
               serviceData?.data?.data.map((service) => {
-                return(
+                return (
                   <div key={service?._id} className="flex items-center justify-between border-b pb-4 gap-5">
                     <div>
                       <p className="text-xl cormorant-font font-semibold">
@@ -215,49 +222,39 @@ const Homepage = () => {
               allowFullScreen
             ></iframe>
           </div>
-        </section>
-      </MotionFade>
-      <section className="bg-[#61168C] py-24 max-sm:py-12 px-5">
-          <div className="max-w-7xl mx-auto">
-            <Heading label="ƯU ĐÃI ĐẶC BIỆT" title="Danh sách gói dịch vụ" content="Các gói dịch vụ siêu ưu đãi từ GODIVA" className="text-white"/>
-            <div className="flex items-center justify-center gap-10 mt-[75px]">
-              <Swiper
-              slidesPerView={1}
-              spaceBetween={10}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-              }}
-              loop={true}
-              navigation={true}
-              modules={[Autoplay, Pagination, Navigation]}
-              breakpoints={{
-                640: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                768: {
-                  slidesPerView: 3,
-                  spaceBetween: 20,
-                },
-                1024: {
-                  slidesPerView: 4,
-                  spaceBetween: 20,
-                },
-              }}
-              className="mt-10"
-            >
-              {packageData?.data.data.map((pack) => {
+          <div className="mt-20">
+            <Heading
+              label="SỰ KIỆN CỦA CHÚNG TÔI"
+              title="Danh sách sự kiện"
+            />
+            <Slide>
+              {newsData?.data?.data?.map((news) => {
                 return (
-                  <SwiperSlide key={pack?._id}>
-                    <ServicePackage packageData={pack}/>
+                  <SwiperSlide key={news._id}>
+                    <NewsCard data={news}/>
                   </SwiperSlide>
                 );
               })}
-            </Swiper>
-            </div>
+            </Slide>
           </div>
         </section>
+      </MotionFade>
+      <section className="bg-mainColor py-24 max-sm:py-12 px-5">
+        <div className="max-w-7xl mx-auto">
+          <Heading label="ƯU ĐÃI ĐẶC BIỆT" title="Danh sách gói dịch vụ" content="Các gói dịch vụ siêu ưu đãi từ GODIVA" className="text-white" />
+          <div className="flex items-center justify-center gap-10 mt-[75px]">
+            <Slide>
+              {packageData?.data.data.map((pack) => {
+                return (
+                  <SwiperSlide key={pack?._id}>
+                    <ServicePackage packageData={pack} />
+                  </SwiperSlide>
+                );
+              })}
+            </Slide>
+          </div>
+        </div>
+      </section>
       <section className="max-w-7xl mx-auto py-24 max-sm:py-12 px-5">
         <MotionFade>
           <div className="flex gap-10 max-sm:flex-col">
@@ -269,12 +266,12 @@ const Homepage = () => {
                 className="text-start"
               />
               <ul className="font-thin w-[70%]">
-                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]"/>Công nghệ tắm trắng tiên tiến giúp da trắng sáng bật tone chỉ sau 1 liệu trình.</li>
-                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]"/>Massage trị liệu chuyên sâu đánh tan cơn đau, giải tỏa căng thẳng, thư giãn toàn thân.</li>
-                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]"/>Liệu trình chăm sóc da mặt bằng tinh chất thiên nhiên giúp da căng mịn, giảm nếp nhăn, trẻ hóa toàn diện.</li>
-                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]"/>Giảm béo không phẫu thuật an toàn hiệu quả, lấy lại vóc dáng thon gọn nhanh chóng.</li>
+                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]" />Công nghệ tắm trắng tiên tiến giúp da trắng sáng bật tone chỉ sau 1 liệu trình.</li>
+                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]" />Massage trị liệu chuyên sâu đánh tan cơn đau, giải tỏa căng thẳng, thư giãn toàn thân.</li>
+                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]" />Liệu trình chăm sóc da mặt bằng tinh chất thiên nhiên giúp da căng mịn, giảm nếp nhăn, trẻ hóa toàn diện.</li>
+                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]" />Giảm béo không phẫu thuật an toàn hiệu quả, lấy lại vóc dáng thon gọn nhanh chóng.</li>
               </ul>
-              <Button label="Đặt lịch" className="mt-10" onCallBack={handleOpenModel}/>
+              <Button label="Đặt lịch" className="mt-10" onCallBack={handleOpenModel} />
             </div>
             <div className="flex-1">
               <img
@@ -285,9 +282,9 @@ const Homepage = () => {
           </div>
         </MotionFade>
         <MotionFade>
-        <div className="flex flex-row-reverse gap-10 mt-[100px] max-sm:mt-[50px] max-sm:flex-col">
-        <div className="flex-1">
-              <Heading label="FAQS" title="CÁC CÂU HỎI THƯỜNG GẶP" position="start"/>
+          <div className="flex flex-row-reverse gap-10 mt-[100px] max-sm:mt-[50px] max-sm:flex-col">
+            <div className="flex-1">
+              <Heading label="FAQS" title="CÁC CÂU HỎI THƯỜNG GẶP" position="start" />
               <div className="flex flex-col gap-5">
                 <details className="p-2 border">
                   <summary className="cormorant-font font-semibold leading-none text-lg">Làm cách nào để đặt lịch hẹn tại GODIVA ?</summary>
@@ -295,20 +292,20 @@ const Homepage = () => {
                 </details>
                 <details className="p-2 border">
                   <summary className="cormorant-font font-semibold leading-none text-lg">Tại GODIVA có những dịch vụ nào ?</summary>
-                  <p className="ontserrat-font mt-2.5 font-light">Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions, award-winning fireworks and seasonal special events.</p>
+                  <p className="ontserrat-font mt-2.5 font-light">Bao gốm dịch vụ nội khoa và nha khoa và dịch vụ thư giãn dưỡng sinh</p>
                 </details>
                 <details className="p-2 border">
-                  <summary className="cormorant-font font-semibold leading-none text-lg">Tư vấn phương pháp điều trị phù hợp ?</summary>
-                  <p className="ontserrat-font mt-2.5 font-light">Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions, award-winning fireworks and seasonal special events.</p>
+                  <summary className="cormorant-font font-semibold leading-none text-lg">GODIVA hiện đang có ưu đãi giảm giá nào</summary>
+                  <p className="ontserrat-font mt-2.5 font-light">GODIVA hiện tại đang có siêu ưu đãi lên đến 85%</p>
                 </details>
               </div>
             </div>
             <div className="flex-1">
               <img src={about3} alt="" />
             </div>
-        </div>
+          </div>
         </MotionFade>
-        <div>
+        {/* <div>
           <div className="py-[100px] max-sm:py-[50px] px-5">
             <HiOutlineBadgeCheck size={40} className="mx-auto" />
             <Swiper
@@ -350,37 +347,13 @@ const Homepage = () => {
               })}
             </Swiper>
           </div>
-        </div>
+        </div> */}
       </section>
       <section className="bg-[#F2F1EB] py-24 max-sm:py-12 px-5">
         <div className="max-w-7xl mx-auto">
           <Heading label="CHUYÊN VIÊN" title="GẶP GỠ CHUYÊN GIA CỦA CHÚNG TÔI" />
           <div className="mt-[70px]">
-            <Swiper
-              slidesPerView={1}
-              spaceBetween={10}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-              }}
-              loop={true}
-              modules={[Autoplay, Pagination, Navigation]}
-              breakpoints={{
-                640: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                768: {
-                  slidesPerView: 3,
-                  spaceBetween: 20,
-                },
-                1024: {
-                  slidesPerView: 4,
-                  spaceBetween: 20,
-                },
-              }}
-              className="mt-10"
-            >
+            <Slide>
               {staffData?.data?.data?.map((expert) => {
                 return (
                   <SwiperSlide key={expert._id}>
@@ -392,7 +365,7 @@ const Homepage = () => {
                   </SwiperSlide>
                 );
               })}
-            </Swiper>
+            </Slide>
           </div>
         </div>
       </section>

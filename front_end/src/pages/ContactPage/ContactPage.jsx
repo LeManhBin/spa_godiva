@@ -21,11 +21,12 @@ export const ContactPage = () => {
   return (
     <div className="">
       <Banner banner="https://images.unsplash.com/photo-1496661415325-ef852f9e8e7c?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="Liên hệ" from="Trang chủ" to="Liên hệ"/>
-      <div className="bg-[#61168C] px-5">
+      <div className="bg-mainColor px-5">
         <div className="py-[100px] max-w-7xl mx-auto flex justify-between max-md:flex-col max-md:gap-5 text-white">
             <div className="flex flex-col items-center">
                 <h1 className="uppercase text-3xl cormorant-font font-medium text-center">Địa chỉ</h1>
                 <p className="italic cormorant-font text-lg text-center max-w-[400px]">89 Lê Đình Lý, phường Vĩnh Trung, Quận Thanh Khê, Tp Đà Nẵng</p>
+                <p className="italic cormorant-font text-lg text-center max-w-[400px]">67 Hùng Vương, phường Vĩnh Trung, Quận Thanh Khê, Tp Đà Nẵng</p>
             </div>
             <div className="flex flex-col items-center">
                 <h1 className="uppercase text-3xl cormorant-font font-medium text-center">Số điện thoại</h1>
@@ -38,7 +39,7 @@ export const ContactPage = () => {
         </div>
       </div>
       <div className="mt-[70px] max-w-7xl mx-auto px-24 max-sm:px-12">
-        <Heading label="Liên hệ" title="Gửi tin nhắn cho chúng tôi" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar."/>
+        <Heading label="Liên hệ" title="Gửi tin nhắn cho chúng tôi" content="Liên hệ với chung tôi để nhận ưu đãi và dịch vụ tốt nhất"/>
         <form action="" ref={form} className="mt-10 flex flex-col gap-5" onSubmit={sendEmail}>
             <input type="text" name="user_name" required placeholder="Họ và tên" className="w-full outline-none py-1.5 border-b italic cormorant-font"/>
             <div className="flex gap-2.5">
