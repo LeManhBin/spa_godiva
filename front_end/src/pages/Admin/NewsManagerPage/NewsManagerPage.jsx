@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { fetchDeleteNews, fetchGetAllNews } from "../../../api/news.api"
 import { IMAGE_URL } from "../../../constants/url"
-import AddNewsModel from "./components/AddnewsModel"
+import AddNewsModel from "./components/AddNewsModel"
 import UpdateNewsModel from "./components/UpdateNewsModel"
 
 export const NewsManagerPage = () => {
