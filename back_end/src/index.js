@@ -9,6 +9,7 @@ import packageRouter from './routes/servicePackage'
 import bannerRouter from './routes/mainBannerRouter'
 import staffRouter from './routes/staffRouter'
 import newsRouter from './routes/newsRouter'
+import customerRouter from './routes/customerRouter'
 
 const app = express()
 
@@ -26,6 +27,7 @@ app.use('/api', packageRouter)
 app.use('/api', bannerRouter) 
 app.use('/api', staffRouter) 
 app.use('/api', newsRouter) 
+app.use('/api', customerRouter) 
 
 app.listen(8080,() => {
     console.log(`Server is running on port 8080`);

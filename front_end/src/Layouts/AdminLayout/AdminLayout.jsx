@@ -55,8 +55,12 @@ const AdminLayout = () => {
             {
               key: '/admin',
               icon: <LineChartOutlined />,
-              label:<Link to="/admin"> Quản lý thống kê</Link>
-              ,
+              label:<Link to="/admin">Quản lý thống kê</Link>
+            },
+            {
+              key: '/admin/customer',
+              icon: <LineChartOutlined />,
+              label:<Link to="/admin/customer?page=1&limit=5">Quản lý khách hàng</Link>
             },
             {
               key: '/admin/service',

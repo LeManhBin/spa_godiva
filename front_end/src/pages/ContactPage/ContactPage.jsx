@@ -1,23 +1,46 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Banner, Button, Heading } from "../../components"
-import emailjs from '@emailjs/browser'
 import { useNavigate } from "react-router-dom";
 import useScrollToTop from "../../hooks/useScrollToTop"
+import { useMutation } from "@tanstack/react-query";
+import { fetchRegisterCustomer } from "../../api/customer.api";
+import { toast } from "react-toastify";
 
 export const ContactPage = () => {
   useScrollToTop()
   const form = useRef();
   const navigate = useNavigate()
-  const sendEmail = (e) => {
-    e.preventDefault();
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    phoneNumber: "",
+    message: ""
+  })
 
-    emailjs.sendForm('service_bw5xsqs', 'template_3d55kdo', form.current, 'dhxYMMKZxbMpMsOma')
-        .then(() => {
-            navigate('/success')
-        }, (error) => {
-            alert(error.text)
-    });
-};
+  const handleOnChange = (e) => {
+    const {name, value} = e.target;
+    setFormState({
+      ...formState,
+      [name]: value
+    })
+  }
+
+  const sendMailMutation = useMutation({
+    mutationFn: fetchRegisterCustomer
+  })
+  
+  const sendEmail = (e) => {
+    e.preventDefault()
+    sendMailMutation.mutate(formState, {
+        onSuccess: (res) => {
+          if(res.status === 200) {
+              navigate("/success")
+          }else {
+              toast.error("Có lỗi xảy ra vui lòng thử lại")
+          }
+      }
+    })
+  };
   return (
     <div className="">
       <Banner banner="https://images.unsplash.com/photo-1496661415325-ef852f9e8e7c?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" label="Liên hệ" from="Trang chủ" to="Liên hệ"/>
@@ -41,12 +64,12 @@ export const ContactPage = () => {
       <div className="mt-[70px] max-w-7xl mx-auto px-24 max-sm:px-12">
         <Heading label="Liên hệ" title="Gửi tin nhắn cho chúng tôi" content="Liên hệ với chung tôi để nhận ưu đãi và dịch vụ tốt nhất"/>
         <form action="" ref={form} className="mt-10 flex flex-col gap-5" onSubmit={sendEmail}>
-            <input type="text" name="user_name" required placeholder="Họ và tên" className="w-full outline-none py-1.5 border-b italic cormorant-font"/>
+            <input type="text" name="name" required placeholder="Họ và tên" className="w-full outline-none py-1.5 border-b italic cormorant-font" value={formState.name} onChange={handleOnChange}/>
             <div className="flex gap-2.5">
-                <input type="text" name="user_phone" required placeholder="Số điện thoại" className="w-full outline-none py-1.5 border-b italic cormorant-font"/>
-                <input type="text" name="user_email" required placeholder="Email" className="w-full outline-none py-1.5 border-b italic cormorant-font"/>
+                <input type="text" name="phoneNumber" required placeholder="Số điện thoại" className="w-full outline-none py-1.5 border-b italic cormorant-font" value={formState.phoneNumber} onChange={handleOnChange}/>
+                <input type="text" name="email" required placeholder="Email" className="w-full outline-none py-1.5 border-b italic cormorant-font" value={formState.email} onChange={handleOnChange}/>
             </div>
-            <textarea name="message" id="" required cols="30" rows="3" placeholder="Nội dung" className="w-full outline-none py-1.5 border-b italic cormorant-font"></textarea>
+            <textarea name="message" id="" required cols="30" rows="3" placeholder="Nội dung" className="w-full outline-none py-1.5 border-b italic cormorant-font" value={formState.message} onChange={handleOnChange}></textarea>
             <Button type="submit" label="Gửi" className="w-max mx-auto px-14"/>
         </form>
       </div>

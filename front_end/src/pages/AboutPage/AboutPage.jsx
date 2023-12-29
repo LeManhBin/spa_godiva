@@ -12,25 +12,57 @@ import {  SERVICE_WIDGET } from "../../constants/fakeData";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { useContext, useRef } from "react";
+import { useContext, useState } from "react";
 import { WebContext } from "../../contexts/AppContext";
-import emailjs from "@emailjs/browser";
 import { useNavigate } from "react-router-dom";
 import { fetchGetAllStaff } from "../../api/staff.api";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import about1 from "../../assets/images/about1.jpg";
 import about2 from "../../assets/images/about2.jpg";
 import about3 from "../../assets/images/about3.jpg";
 import MotionFade from "../../components/MotionFade";
 import { fetchGetAllNews } from "../../api/news.api";
+import { fetchRegisterCustomer } from "../../api/customer.api";
+import { toast } from "react-toastify";
 
 export const AboutPage = () => {
   useScrollToTop()
   
   const [, dispatch] = useContext(WebContext);
   const navigate = useNavigate();
-  const form = useRef();
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    phoneNumber: "",
+    message: ""
+  })
+
+  const handleOnChange = (e) => {
+    const {name, value} = e.target;
+    setFormState({
+      ...formState,
+      [name]: value
+    })
+  }
+
+  const sendMailMutation = useMutation({
+    mutationFn: fetchRegisterCustomer
+  })
+  
+  const sendEmail = (e) => {
+    e.preventDefault()
+    sendMailMutation.mutate(formState, {
+        onSuccess: (res) => {
+          if(res.status === 200) {
+              navigate("/success")
+          }else {
+              toast.error("Có lỗi xảy ra vui lòng thử lại")
+          }
+      }
+    })
+  };
+
 
   const handleOpenModel = () => {
     dispatch({ type: "OPEN_MODEL" });
@@ -45,26 +77,6 @@ export const AboutPage = () => {
     queryKey: ["GET_NEWS"],
     queryFn: fetchGetAllNews,
   })
-
-  const sendEmail = (e) => {
-    e.preventDefault();
-
-    emailjs
-      .sendForm(
-        "service_bw5xsqs",
-        "template_3d55kdo",
-        form.current,
-        "dhxYMMKZxbMpMsOma"
-      )
-      .then(
-        () => {
-          navigate("/success");
-        },
-        (error) => {
-          alert(error.text);
-        }
-      );
-  };
 
   return (
     <div className="">
@@ -264,7 +276,7 @@ export const AboutPage = () => {
               <div className="flex flex-col gap-5">
                 <details className="p-2 border">
                   <summary className="cormorant-font font-semibold leading-none text-lg">Làm cách nào để đặt lịch hẹn tại GODIVA ?</summary>
-                  <p className="ontserrat-font mt-2.5 font-light">Bạn có thể liên hệ với chúng tôi qua page của GODIVA, hoặc gọi điện đến hotline, hoặc chọn chức năng đặt lịch, đội ngũ nhân viên sẽ tư vấn bạn trong thời gian sớm nhất</p>
+                  <p className="ontserrat-font mt-2.5 font-light">Bạn có thể liên hệ với chúng tôi qua page của GODIVA, hoặc gọi điện đến hotline: 091110562, hoặc chọn chức năng đặt lịch, đội ngũ nhân viên sẽ tư vấn bạn trong thời gian sớm nhất</p>
                 </details>
                 <details className="p-2 border">
                   <summary className="cormorant-font font-semibold leading-none text-lg">Tại GODIVA có những dịch vụ nào ?</summary>
@@ -293,7 +305,6 @@ export const AboutPage = () => {
         />
         <form
           action=""
-          ref={form}
           className="mt-10 flex flex-col gap-5 px-40 max-sm:px-0"
           onSubmit={sendEmail}
         >
@@ -301,23 +312,29 @@ export const AboutPage = () => {
             type="text"
             required
             placeholder="Họ và tên"
-            name="user_name"
+            name="name"
             className="w-full outline-none py-1.5 border-b italic cormorant-font bg-transparent"
+            onChange={handleOnChange}
+            value={formState.name}
           />
           <div className="flex gap-2.5">
             <input
               type="text"
               required
               placeholder="Số điện thoại"
-              name="user_phone"
+              name="phoneNumber"
               className="w-full outline-none py-1.5 border-b italic cormorant-font bg-transparent"
+              onChange={handleOnChange}
+              value={formState.phoneNumber}
             />
             <input
               type="text"
               required
               placeholder="Email"
-              name="user_email"
+              name="email"
               className="w-full outline-none py-1.5 border-b italic cormorant-font bg-transparent"
+              onChange={handleOnChange}
+              value={formState.email}
             />
           </div>
           <textarea
@@ -328,6 +345,8 @@ export const AboutPage = () => {
             rows="3"
             placeholder="Nội dung"
             className="w-full outline-none py-1.5 border-b italic cormorant-font bg-transparent"
+            onChange={handleOnChange}
+            value={formState.message}
           ></textarea>
           <Button type="submit" label="Đăng ký" className="w-max mx-auto" />
         </form>

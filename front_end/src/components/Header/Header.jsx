@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HiOutlineMenuAlt3, HiOutlineX } from "react-icons/hi";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export const Header = () => {
   const [isOpenNavbar, setIsOpenNavbar] = useState(false);
@@ -11,10 +11,12 @@ export const Header = () => {
   
   return (
     <div className="fixed z-50 top-0 left-0 right-0 h-[90px]  mx-auto flex items-center justify-between border-b border-white px-10 bg-mainColor mb-[90px]">
-        <div className="flex flex-col items-center justify-center text-[#FFD700]">
-            <h1 className="cormorant-font text-2xl font-semibold tracking-wide">GODIVA KOREA</h1>
-            <p className="leading-none montserrat-font">Nơi nhan sắc tái sinh</p>
-        </div>
+        <Link to="/">
+          <div className="flex flex-col items-center justify-center text-[#FFD700]">
+              <h1 className="cormorant-font text-2xl font-semibold tracking-wide">GODIVA KOREA</h1>
+              <p className="leading-none montserrat-font">Nơi nhan sắc tái sinh</p>
+          </div>
+        </Link>
         {
           isOpenNavbar &&
           <div className="fixed inset-0 bg-black opacity-70 z-10 lg:hidden" onClick={handleToggleNavbar}></div>

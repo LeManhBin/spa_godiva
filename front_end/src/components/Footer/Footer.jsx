@@ -1,9 +1,11 @@
-import { useContext, useRef } from "react"
+import { useContext, useState } from "react"
 import Button from "../Button"
 import { WebContext } from "../../contexts/AppContext"
-import emailjs from '@emailjs/browser';
 import { Link, useNavigate } from "react-router-dom";
 import { HiClock, HiLocationMarker, HiMail, HiPhone } from "react-icons/hi";
+import { useMutation } from "@tanstack/react-query";
+import { fetchRegisterCustomer } from "../../api/customer.api";
+import { toast } from "react-toastify";
 
 export const Footer = () => {
     const [, dispatch] = useContext(WebContext)
@@ -12,18 +14,37 @@ export const Footer = () => {
         dispatch({type: "OPEN_MODEL"})
     }
 
-    const form = useRef();
+    const [formState, setFormState] = useState({
+        name: "",
+        email: "",
+        phoneNumber: "",
+        message: ""
+      })
     
-    const sendEmail = (e) => {
-        e.preventDefault();
-
-        emailjs.sendForm('service_bw5xsqs', 'template_3d55kdo', form.current, 'dhxYMMKZxbMpMsOma')
-            .then(() => {
-                navigate('/success')
-            }, (error) => {
-                alert(error.text)
-        });
-    };
+      const handleOnChange = (e) => {
+        const {name, value} = e.target;
+        setFormState({
+          ...formState,
+          [name]: value
+        })
+      }
+    
+      const sendMailMutation = useMutation({
+        mutationFn: fetchRegisterCustomer
+      })
+      
+      const sendEmail = (e) => {
+        e.preventDefault()
+        sendMailMutation.mutate(formState, {
+            onSuccess: (res) => {
+              if(res.status === 200) {
+                  navigate("/success")
+              }else {
+                  toast.error("Có lỗi xảy ra vui lòng thử lại")
+              }
+          }
+        })
+      };
   return (
     <footer className="py-20">
         <div className="h-[300px] relative">
@@ -57,22 +78,22 @@ export const Footer = () => {
             </div>
             <div className="">
                 <h1 className="text-2xl font-medium cormorant-font">Đăng ký để nhận ưu đãi</h1>
-                <form action="" ref={form} className="w-full flex flex-col gap-2.5 mt-2.5" onSubmit={sendEmail}>
+                <form action="" className="w-full flex flex-col gap-2.5 mt-2.5" onSubmit={sendEmail}>
                     <div className="flex flex-col gap-2.5 w-full">
                         <label htmlFor="" className="montserrat-font font-light">Họ và tên</label>
-                        <input type="text" required placeholder="Nhập họ và tên" name="user_name" className="outline-none px-2.5 py-1.5 border"/>
+                        <input type="text" required placeholder="Nhập họ và tên" name="name" className="outline-none px-2.5 py-1.5 border" value={formState.name} onChange={handleOnChange}/>
                     </div>
                     <div className="flex flex-col gap-2.5 w-full">
                         <label htmlFor="" className="montserrat-font font-light">Email</label>
-                        <input type="text" required placeholder="Nhập email" name="user_email" className="outline-none px-2.5 py-1.5 border"/>
+                        <input type="text" required placeholder="Nhập email" name="email" className="outline-none px-2.5 py-1.5 border" value={formState.email} onChange={handleOnChange}/>
                     </div>
                     <div className="flex flex-col gap-2.5 w-full">
                         <label htmlFor="" className="montserrat-font font-light">Số điện thoại</label>
-                        <input type="text" required placeholder="Nhập số điện thoại" name="user_phone" className="outline-none px-2.5 py-1.5 border"/>
+                        <input type="text" required placeholder="Nhập số điện thoại" name="phoneNumber" className="outline-none px-2.5 py-1.5 border" value={formState.phoneNumber} onChange={handleOnChange}/>
                     </div>
                     <div className="flex flex-col gap-2.5 w-full">
                         <label htmlFor="" className="montserrat-font font-light">Lời nhắn</label>
-                        <textarea name="message" id="" cols="30" rows="3" placeholder="Nhập lời nhắn" className="outline-none px-2.5 py-1.5 border"></textarea>
+                        <textarea name="message" id="" cols="30" rows="3" placeholder="Nhập lời nhắn" className="outline-none px-2.5 py-1.5 border" value={formState.message} onChange={handleOnChange}></textarea>
                     </div>
                     <Button type="submit" label="Gửi"/>
                 </form>

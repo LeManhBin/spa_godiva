@@ -16,6 +16,7 @@ import StaffManagerPage from "./pages/Admin/StaffManagerPage"
 import NewsPage from "./pages/NewsPage"
 import NewsDetail from "./pages/NewsDetail"
 import NewsManagerPage from "./pages/Admin/NewsManagerPage"
+import CustomerManagerPage from "./pages/Admin/CustomerManagerPage"
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path="staff" element={<StaffManagerPage/>}/>
             <Route path="news" element={<NewsManagerPage/>}/>
             <Route path="banner" element={<BannerManagerPage/>}/>
+            <Route path="customer" element={<CustomerManagerPage/>}/>
           </Route>
           <Route path="/success" element={<SuccessPage/>}/>
           <Route path="/login" element={<LoginPage/>}/>
