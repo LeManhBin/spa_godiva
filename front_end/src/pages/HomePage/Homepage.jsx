@@ -22,51 +22,58 @@ import { fetchGetBanner } from "../../api/banner.api";
 import { IMAGE_URL } from "../../constants/url";
 import { fetchGetAllStaff } from "../../api/staff.api";
 import useScrollToTop from "../../hooks/useScrollToTop";
-import banner1 from "../../assets/images/banner1.jpg"
-import banner2 from "../../assets/images/banner2.jpg"
-import banner3 from "../../assets/images/banner3.jpg"
-import banner4 from "../../assets/images/banner4.jpg"
+import banner1 from "../../assets/images/banner1.jpg";
+import banner2 from "../../assets/images/banner2.jpg";
+import banner3 from "../../assets/images/banner3.jpg";
+import banner4 from "../../assets/images/banner4.jpg";
 import about3 from "../../assets/images/about3.jpg";
 import about2 from "../../assets/images/about2.jpg";
 import MotionFade from "../../components/MotionFade";
 import { fetchGetAllNews } from "../../api/news.api";
 const Homepage = () => {
-  useScrollToTop()
-  const [, dispatch] = useContext(WebContext)
+  useScrollToTop();
+  const [, dispatch] = useContext(WebContext);
 
   const handleOpenModel = () => {
-    dispatch({ type: "OPEN_MODEL" })
-  }
+    dispatch({ type: "OPEN_MODEL" });
+  };
 
   const { data: serviceData } = useQuery({
     queryKey: "GET_SERVICES",
     queryFn: fetchGetAllService,
-
-  })
+  });
 
   const { data: packageData } = useQuery({
     queryKey: "GET_PACKAGE",
     queryFn: fetchGetAllPackage,
-  })
+  });
 
   const { data: bannerData } = useQuery({
     queryKey: ["GET_BANNER"],
     queryFn: fetchGetBanner,
-  })
+  });
 
   const { data: staffData } = useQuery({
     queryKey: ["GET_STAFF"],
     queryFn: fetchGetAllStaff,
-  })
+  });
 
   const { data: newsData } = useQuery({
     queryKey: ["GET_NEWS"],
     queryFn: fetchGetAllNews,
-  })
+  });
   return (
     <div className="">
       <div className=" relative top-[90px] bg-mainColor">
-        <img src={`${IMAGE_URL}/${bannerData?.data?.data[0].image}`} alt="" className="w-full h-full object-cover" />
+        <img
+          src={
+            bannerData?.data?.data[0]?.image
+              ? `${IMAGE_URL}/${bannerData.data.data[0].image}`
+              : "https://images.unsplash.com/photo-1488345979593-09db0f85545f?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          }
+          alt=""
+          className="w-full h-full object-cover"
+        />
       </div>
       <section className="bg-mainColor">
         <div className="flex max-w-7xl mx-auto py-20 px-10 max-sm:flex-col max-sm:gap-10">
@@ -90,30 +97,29 @@ const Homepage = () => {
             content="Tắm trắng, massage, chăm sóc da mặt - Giúp bạn trẻ hóa làn da, tự tin tỏa sáng..."
           />
           <div className="mt-20 grid grid-cols-2 gap-16 max-sm:grid-cols-1">
-            {
-              serviceExperience.map((service) => {
-                return (
-                  <div key={service?._id} className="flex items-center justify-between border-b pb-4 gap-5">
-                    <div>
-                      <p className="text-xl cormorant-font font-semibold">
-                        {service?.name}
-                      </p>
-                      <p className="font-light mt-2.5">
-                        {service?.description}
-                      </p>
-                    </div>
-                    <div className="flex flex-col items-center gap-2.5">
-                      <p className="font-medium tracking-widest text-gray-500 text-sm line-through whitespace-nowrap">
-                        {convertMoneyToVND(service?.priceBeforeDiscount)}
-                      </p>
-                      <p className="font-medium tracking-widest text-[#FFA732] text-lg whitespace-nowrap">
-                        {convertMoneyToVND(service?.priceAfterDiscount)}
-                      </p>
-                    </div>
+            {serviceExperience.map((service) => {
+              return (
+                <div
+                  key={service?._id}
+                  className="flex items-center justify-between border-b pb-4 gap-5"
+                >
+                  <div>
+                    <p className="text-xl cormorant-font font-semibold">
+                      {service?.name}
+                    </p>
+                    <p className="font-light mt-2.5">{service?.description}</p>
                   </div>
-                )
-              })
-            }
+                  <div className="flex flex-col items-center gap-2.5">
+                    <p className="font-medium tracking-widest text-gray-500 text-sm line-through whitespace-nowrap">
+                      {convertMoneyToVND(service?.priceBeforeDiscount)}
+                    </p>
+                    <p className="font-medium tracking-widest text-[#FFA732] text-lg whitespace-nowrap">
+                      {convertMoneyToVND(service?.priceAfterDiscount)}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </section>
       </MotionFade>
@@ -122,7 +128,10 @@ const Homepage = () => {
           <div className="flex flex-col items-center py-20 gap-5 px-5">
             <HiOutlineBadgeCheck size={40} className="" />
             <p className="max-w-2xl text-center italic text-xl font-light">
-              Tại GODIVA, chúng tôi cam kết mang đến cho khách hàng những dịch vụ thẩm mỹ chất lượng cao, giá cả phải chăng và đội ngũ nhân viên chuyên nghiệp. Hãy liên hệ với chúng tôi ngay hôm nay để được tư vấn miễn phí!
+              Tại GODIVA, chúng tôi cam kết mang đến cho khách hàng những dịch
+              vụ thẩm mỹ chất lượng cao, giá cả phải chăng và đội ngũ nhân viên
+              chuyên nghiệp. Hãy liên hệ với chúng tôi ngay hôm nay để được tư
+              vấn miễn phí!
             </p>
             <p className="whisper-font font-medium text-5xl">Yến Như</p>
           </div>
@@ -186,30 +195,29 @@ const Homepage = () => {
             content="Tắm trắng, massage, chăm sóc da mặt - Giúp bạn trẻ hóa làn da, tự tin tỏa sáng..."
           />
           <div className="mt-20 grid grid-cols-2 gap-16 max-sm:grid-cols-1">
-            {
-              serviceData?.data?.data.map((service) => {
-                return (
-                  <div key={service?._id} className="flex items-center justify-between border-b pb-4 gap-5">
-                    <div>
-                      <p className="text-xl cormorant-font font-semibold">
-                        {service?.name}
-                      </p>
-                      <p className="font-light mt-2.5">
-                        {service?.description}
-                      </p>
-                    </div>
-                    <div className="flex flex-col items-center gap-2.5">
-                      <p className="font-medium tracking-widest text-gray-500 text-sm line-through whitespace-nowrap">
-                        {convertMoneyToVND(service?.priceBeforeDiscount)}
-                      </p>
-                      <p className="font-medium tracking-widest text-[#FFA732] text-lg whitespace-nowrap">
-                        {convertMoneyToVND(service?.priceAfterDiscount)}
-                      </p>
-                    </div>
+            {serviceData?.data?.data.map((service) => {
+              return (
+                <div
+                  key={service?._id}
+                  className="flex items-center justify-between border-b pb-4 gap-5"
+                >
+                  <div>
+                    <p className="text-xl cormorant-font font-semibold">
+                      {service?.name}
+                    </p>
+                    <p className="font-light mt-2.5">{service?.description}</p>
                   </div>
-                )
-              })
-            }
+                  <div className="flex flex-col items-center gap-2.5">
+                    <p className="font-medium tracking-widest text-gray-500 text-sm line-through whitespace-nowrap">
+                      {convertMoneyToVND(service?.priceBeforeDiscount)}
+                    </p>
+                    <p className="font-medium tracking-widest text-[#FFA732] text-lg whitespace-nowrap">
+                      {convertMoneyToVND(service?.priceAfterDiscount)}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
           <div className="h-[500px] w-[100%] max-sm:h-[400px] bg-slate-500 rounded mt-20">
             <iframe
@@ -223,15 +231,12 @@ const Homepage = () => {
             ></iframe>
           </div>
           <div className="mt-20">
-            <Heading
-              label="SỰ KIỆN CỦA CHÚNG TÔI"
-              title="Danh sách sự kiện"
-            />
+            <Heading label="SỰ KIỆN CỦA CHÚNG TÔI" title="Danh sách sự kiện" />
             <Slide>
               {newsData?.data?.data?.map((news) => {
                 return (
                   <SwiperSlide key={news._id}>
-                    <NewsCard data={news}/>
+                    <NewsCard data={news} />
                   </SwiperSlide>
                 );
               })}
@@ -241,7 +246,12 @@ const Homepage = () => {
       </MotionFade>
       <section className="bg-mainColor py-24 max-sm:py-12 px-5">
         <div className="max-w-7xl mx-auto">
-          <Heading label="ƯU ĐÃI ĐẶC BIỆT" title="Danh sách gói dịch vụ" content="Các gói dịch vụ siêu ưu đãi từ GODIVA" className="text-white" />
+          <Heading
+            label="ƯU ĐÃI ĐẶC BIỆT"
+            title="Danh sách gói dịch vụ"
+            content="Các gói dịch vụ siêu ưu đãi từ GODIVA"
+            className="text-white"
+          />
           <div className="flex items-center justify-center gap-10 mt-[75px]">
             <Slide>
               {packageData?.data.data.map((pack) => {
@@ -266,37 +276,77 @@ const Homepage = () => {
                 className="text-start"
               />
               <ul className="font-thin w-[70%]">
-                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]" />Công nghệ tắm trắng tiên tiến giúp da trắng sáng bật tone chỉ sau 1 liệu trình.</li>
-                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]" />Massage trị liệu chuyên sâu đánh tan cơn đau, giải tỏa căng thẳng, thư giãn toàn thân.</li>
-                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]" />Liệu trình chăm sóc da mặt bằng tinh chất thiên nhiên giúp da căng mịn, giảm nếp nhăn, trẻ hóa toàn diện.</li>
-                <li className="flex gap-5 mt-2.5"> <HiOutlineCheck size={20} className="text-[#FFA732]" />Giảm béo không phẫu thuật an toàn hiệu quả, lấy lại vóc dáng thon gọn nhanh chóng.</li>
+                <li className="flex gap-5 mt-2.5">
+                  {" "}
+                  <HiOutlineCheck size={20} className="text-[#FFA732]" />
+                  Công nghệ tắm trắng tiên tiến giúp da trắng sáng bật tone chỉ
+                  sau 1 liệu trình.
+                </li>
+                <li className="flex gap-5 mt-2.5">
+                  {" "}
+                  <HiOutlineCheck size={20} className="text-[#FFA732]" />
+                  Massage trị liệu chuyên sâu đánh tan cơn đau, giải tỏa căng
+                  thẳng, thư giãn toàn thân.
+                </li>
+                <li className="flex gap-5 mt-2.5">
+                  {" "}
+                  <HiOutlineCheck size={20} className="text-[#FFA732]" />
+                  Liệu trình chăm sóc da mặt bằng tinh chất thiên nhiên giúp da
+                  căng mịn, giảm nếp nhăn, trẻ hóa toàn diện.
+                </li>
+                <li className="flex gap-5 mt-2.5">
+                  {" "}
+                  <HiOutlineCheck size={20} className="text-[#FFA732]" />
+                  Giảm béo không phẫu thuật an toàn hiệu quả, lấy lại vóc dáng
+                  thon gọn nhanh chóng.
+                </li>
               </ul>
-              <Button label="Đặt lịch" className="mt-10" onCallBack={handleOpenModel} />
+              <Button
+                label="Đặt lịch"
+                className="mt-10"
+                onCallBack={handleOpenModel}
+              />
             </div>
             <div className="flex-1">
-              <img
-                src={about2}
-                alt=""
-              />
+              <img src={about2} alt="" />
             </div>
           </div>
         </MotionFade>
         <MotionFade>
           <div className="flex flex-row-reverse gap-10 mt-[100px] max-sm:mt-[50px] max-sm:flex-col">
             <div className="flex-1">
-              <Heading label="FAQS" title="CÁC CÂU HỎI THƯỜNG GẶP" position="start" />
+              <Heading
+                label="FAQS"
+                title="CÁC CÂU HỎI THƯỜNG GẶP"
+                position="start"
+              />
               <div className="flex flex-col gap-5">
                 <details className="p-2 border">
-                  <summary className="cormorant-font font-semibold leading-none text-lg">Làm cách nào để đặt lịch hẹn tại GODIVA ?</summary>
-                  <p className="ontserrat-font mt-2.5 font-light">Bạn có thể liên hệ với chúng tôi qua page của GODIVA, hoặc gọi điện đến hotline, hoặc chọn chức năng đặt lịch, đội ngũ nhân viên sẽ tư vấn bạn trong thời gian sớm nhất</p>
+                  <summary className="cormorant-font font-semibold leading-none text-lg">
+                    Làm cách nào để đặt lịch hẹn tại GODIVA ?
+                  </summary>
+                  <p className="ontserrat-font mt-2.5 font-light">
+                    Bạn có thể liên hệ với chúng tôi qua page của GODIVA, hoặc
+                    gọi điện đến hotline, hoặc chọn chức năng đặt lịch, đội ngũ
+                    nhân viên sẽ tư vấn bạn trong thời gian sớm nhất
+                  </p>
                 </details>
                 <details className="p-2 border">
-                  <summary className="cormorant-font font-semibold leading-none text-lg">Tại GODIVA có những dịch vụ nào ?</summary>
-                  <p className="ontserrat-font mt-2.5 font-light">Bao gốm dịch vụ nội khoa và nha khoa và dịch vụ thư giãn dưỡng sinh</p>
+                  <summary className="cormorant-font font-semibold leading-none text-lg">
+                    Tại GODIVA có những dịch vụ nào ?
+                  </summary>
+                  <p className="ontserrat-font mt-2.5 font-light">
+                    Bao gốm dịch vụ nội khoa và nha khoa và dịch vụ thư giãn
+                    dưỡng sinh
+                  </p>
                 </details>
                 <details className="p-2 border">
-                  <summary className="cormorant-font font-semibold leading-none text-lg">GODIVA hiện đang có ưu đãi giảm giá nào</summary>
-                  <p className="ontserrat-font mt-2.5 font-light">GODIVA hiện tại đang có siêu ưu đãi lên đến 85%</p>
+                  <summary className="cormorant-font font-semibold leading-none text-lg">
+                    GODIVA hiện đang có ưu đãi giảm giá nào
+                  </summary>
+                  <p className="ontserrat-font mt-2.5 font-light">
+                    GODIVA hiện tại đang có siêu ưu đãi lên đến 85%
+                  </p>
                 </details>
               </div>
             </div>
@@ -351,7 +401,10 @@ const Homepage = () => {
       </section>
       <section className="bg-[#F2F1EB] py-24 max-sm:py-12 px-5">
         <div className="max-w-7xl mx-auto">
-          <Heading label="CHUYÊN VIÊN" title="GẶP GỠ CHUYÊN GIA CỦA CHÚNG TÔI" />
+          <Heading
+            label="CHUYÊN VIÊN"
+            title="GẶP GỠ CHUYÊN GIA CỦA CHÚNG TÔI"
+          />
           <div className="mt-[70px]">
             <Slide>
               {staffData?.data?.data?.map((expert) => {
